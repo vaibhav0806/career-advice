@@ -14,7 +14,7 @@ const getCareerAdvice = async (career: string, years: number): Promise<string> =
 
   const data = {
     messages: [
-      { role: 'system', content: 'You are a helpful career advisor.' },
+      { role: 'system', content: 'You are a helpful career advisor. Provide advice in Markdown format.' },
       { role: 'user', content: `Provide career advice for becoming a ${career} in ${years} years.` }
     ],
     model: 'gemma'
@@ -35,14 +35,6 @@ const getCareerAdvice = async (career: string, years: number): Promise<string> =
     throw error;
   }
 }
-
-const CustomLink = ({ href, children }: any) => {
-    if (href.startsWith('http')) {
-      return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
-    }
-    // For internal links or other cases, just render the text
-    return <span>{children}</span>
-  }
 
 export default function CareerAdvicePage() {
   const [career, setCareer] = useState('')
@@ -116,7 +108,7 @@ export default function CareerAdvicePage() {
               </CardHeader>
               <CardContent>
                 <div className="prose max-w-none">
-                  <ReactMarkdown components={{ a: CustomLink }}>{advice}</ReactMarkdown>
+                  <ReactMarkdown>{advice}</ReactMarkdown>
                 </div>
               </CardContent>
             </Card>
